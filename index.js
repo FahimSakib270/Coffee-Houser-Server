@@ -27,6 +27,11 @@ async function run() {
     await client.connect();
     const coffeeCollection = client.db("coffeeDB").collection("coffee");
 
+    app.get("/coffee", async (req, res) => {
+      const results = await coffeeCollection.find().toArray();
+      res.send(results);
+    });
+
     app.post("/coffee", async (req, res) => {
       const newCoffee = req.body;
       console.log("Received new coffee data:", newCoffee);
