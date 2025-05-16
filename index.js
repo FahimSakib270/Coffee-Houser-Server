@@ -73,11 +73,14 @@ async function run() {
     // userInfo related API
     app.post("/user", async (req, res) => {
       const userProfile = req.body;
-      console.log(userProfile);
+      console.log("user proile", userProfile);
       const results = await usersCollection.insertOne(userProfile);
       res.send(results);
     });
-
+    app.get("/user", async (req, res) => {
+      const results = await usersCollection.find().toArray();
+      res.send(results);
+    });
     await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
